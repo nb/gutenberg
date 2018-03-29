@@ -34,6 +34,8 @@ import * as textColumns from './text-columns';
 import * as verse from './verse';
 import * as video from './video';
 
+import * as trials from './trials';
+
 export const registerCoreBlocks = () => {
 	[
 		// Common blocks are grouped at the top to prioritize their display
@@ -69,6 +71,7 @@ export const registerCoreBlocks = () => {
 		textColumns,
 		verse,
 		video,
+		trials,
 	].forEach( ( { name, settings } ) => {
 		registerBlockType( name, settings );
 	} );
