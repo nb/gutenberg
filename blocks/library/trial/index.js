@@ -14,23 +14,34 @@ import './editor.scss';
 
 export const name = 'core/trial';
 
-const statuses = [ 'new', 'current', 'done' ];
+const statuses = [
+	{ key: 'new', text: 'New' },
+	{ key: 'planned', text: 'Planned' },
+	{ key: 'in-progress', text: 'In Progress' },
+	{ key: 'needs-completion', text: 'Needs Completion' },
+	{ key: 'needs-merging', text: 'Needs Merging' },
+	{ key: 'done', text: 'Done :)' },
+];
 
 const blockAttributes = {
 	title: {
 		source: 'children',
-		selector: 'div > div:nth-child(2)',
+		selector: 'header',
 	},
 	description: {
 		source: 'children',
-		selector: 'div > div:nth-child(3)',
+		selector: 'article',
+	},
+	team: {
+		source: 'children',
+		selector: 'address',
 	},
 	links: {
 		source: 'children',
-		selector: 'div > div:nth-child(4)',
+		selector: 'aside',
 	},
 	status: {
-		type: 'string',
+		type: 'object',
 		default: statuses[ 0 ],
 	},
 };
@@ -40,11 +51,13 @@ class Trial extends Component {
 		const { className } = this.props;
 		return (
 			<div className={ className }>
-				<div>T:</div>
-				<div>{ this.richText( 'title' ) }</div>
-				<div>{ this.richText( 'description' ) }</div>
-				<div>{ this.richText( 'links' ) }</div>
-				<div>{ this.statusChooser() }</div>
+				<header>{ this.richText( 'title' ) }</header>
+				<div>
+					<article>{ this.richText( 'description' ) }</article>
+					<address>{ this.richText( 'team' ) }</address>
+					<aside>{ this.richText( 'links' ) }</aside>
+				</div>
+				<footer style={ { clear: 'left' } }>{ this.statusChooser() }</footer>
 			</div>
 		);
 	}
@@ -53,6 +66,7 @@ class Trial extends Component {
 		const { attributes, setAttributes, edit, isSelected } = this.props;
 		return edit ? (
 			<RichText
+				key={ 1 }
 				tagName="span"
 				placeholder={ __( `Add ${ attribute }…` ) }
 				value={ attributes[ attribute ] }
@@ -75,10 +89,11 @@ class Trial extends Component {
 	}
 
 	statusBadge( status, onClick ) {
+		const { edit } = this.props;
 		return (
-			<div key={ status } className={ `status-badge status-${ status }` } onClick={ onClick }>
-				{ status }
-			</div>
+			<span key={ status.key } className={ `status-badge status-${ status.key }` } onClick={ onClick }>
+				{ status.text.replace( / /g, '\xa0' ) }
+			</span>
 		);
 	}
 

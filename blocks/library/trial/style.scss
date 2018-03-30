@@ -1,22 +1,59 @@
 .wp-block-trial {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 20px 120px auto 150px 90px;
-	grid-column-gap: 10px;
+	grid-template-columns: 121px auto 110px;
+	grid-column-gap: 11px;
+	margin: 22px 0;
+}
+.wp-block-trial address {
+	font-style: normal;
+	/* Twentyseventeen adds margin to all <address> tags for some reason */
+	margin: 0;
+}
+.wp-block-trial address:not(:empty):before {
+	content: "Team:";
+	font-style: italic;
+	float: left;
+	margin-right: 6px;
+}
+.wp-block-trial aside:not(:empty):before {
+	content: "Links:";
+	font-style: italic;
+	float: left;
+	margin-right: 6px;
+}
+.wp-block-trial > footer {
+	text-align: center;
 }
 .status-badge {
-	font-weight: bold;
-	height: 30px;
+	font-size: 12px;
+	font-family: Helvetica, Arial, sans-serif;
 	color: white;
-	width: 90px;
-	text-align: center;
-	border-radius: 12px;
+	padding: 2px 5px;
+	border-radius: 3px;
+	text-decoration: none;
+}
+.status-badge:hover {
+	color: white;
+}
+.wp-block-trial-status-popover div {
+	padding: 3px;
+}
+.wp-block-trial-status-popover .status-badge {
+	margin: 3px;
+}
+
+.status-planned {
+	background-color: green;
 }
 .status-new {
-	background-color: rgb( 0, 104, 0);
+	background-color: dodgerblue;
 }
-.status-current {
-	background-color: orange;
+.status-in-progress {
+	background-color: #fb8b1e;
+}
+.status-needs-completion, .status-needs-merging {
+	background-color: #b17bca;
 }
 .status-done {
 	background-color: red;
